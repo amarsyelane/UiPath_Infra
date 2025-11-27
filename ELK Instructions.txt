@@ -1,0 +1,54 @@
+Download & Install 7 Zip:
+https://www.7-zip.org/download.html
+
+
+ELASTICSEARCH:
+1. Take RDP of ELK machine (RDP address mentioned in your Lab details)
+2. Download Elasticsearch: https://www.elastic.co/downloads/past-releases/elasticsearch-8-18-2
+3. Extract zip file with 7 zip
+4. Navigate to the extracted folder and locate elasticsearch.yml file (present under the config folder C:\Downloads\elasticsearch-8.18.2-windows-x86_64\elasticsearch-8.18.2\config)
+5. Open the yml file with notepad++ and edit/uncomment following fields and save the file
+        a. cluster.name: meaningful name
+	b. node.name: hostname of your server
+	c. network.host: 0.0.0.0
+	d. http.port: 9200
+	e. discovery.seed_hosts: ["elk-vm00"]
+	f. cluster.initial_master_nodes: ["elk-vm00"]
+6. Open and elevated command prompt and cd to C:\Downloads\elasticsearch-8.18.2-windows-x86_64\elasticsearch-8.18.2\bin
+7. Run elasticsearch.bat
+8. Open a browser and launch http://localhost:9200 and observe the error, now launch https://localhost:9200 and identify the difference.
+9. Re open the elasticsearch.yml file and set the below keys as false
+   a. xpack.security.enabled: false
+   b. xpack.security.enrollment.enabled: false
+   c. xpack.security.http.ssl:
+      enabled: false
+   d. xpack.security.transport.ssl:
+      enabled: false
+10. Save the file and trigger elasticsearch.bat again as mentioned in point #7 above. Now re-launch http://localhost:9200 and wait for the JSON response to appear on the browser.
+11. To install it as a service, again open and elevated command prompt and navigate to the above path and run below commands'
+    a. elasticsearch-service.bat install 
+	b. elasticsearch-service.bat start
+	
+KIBANA: 
+1. Download Kibana: https://www.elastic.co/downloads/past-releases/kibana-8-18-2
+2. Unzip using 7zip
+3. navigate to the extracted folder and locate the kibana.yml file under the config folder (C:\Downloads\kibana-8.18.2-windows-x86_64\kibana-8.18.2\config)
+4. Open the yml file with notepad++ and edit/uncomment following fields
+   a. server.port: 5601
+   b. server.host: "Your ELK Machine IP"
+   c. server.name: "your server hostname"
+   d. elasticsearch.hosts: ["http://localhost:9200"]
+ 5. Open and elevated command prompt and cd to C:\Downloads\kibana-8.18.2-windows-x86_64\kibana-8.18.2\bin
+ 6. Run kibana.bat
+ 7. Open a browser and launch http://MachineIP:5601 to verify the install
+
+Note: Step 8 below is optional (mentioned just to show the manual way of creating an index), if you have an active tenant (robots connected and sending logs to orchestrator then orchestrator creates the required index on its own)
+ 8. Create a index for default tenant and post a test message by navigating to Management> Dev Tools> Run the following (CHANGE DATE/MONTH/YEAR FOR TIMESTAMP FIELD BELOW)
+    POST default-2022.09\logEvent
+{
+	"message": "Hello Elasticsearch!",
+	"@timestamp": "2023-03-14T08:56:56.1219306Z"
+}
+9. Create an index pattern by navigating to Management> Stack Management> Kibana> Index Patterns> in the search bar type default* and then select @timestamp
+
+

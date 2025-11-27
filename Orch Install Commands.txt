@@ -1,0 +1,31 @@
+**************PLEASE UPDATE THE BELOW COMMANDS WITH YOUR OWN LAB DETAILS FOR THINGS LIKE -DNsName,CN, REDIS_HOST, REDIS_PASSWORD, STORAGE_LOCATION, PUBLIC_URL, CERTIFICATE_SUBJECT, IS_CERTIFICATE_SUBJECT etc. DON'T USE THE COMMANDS AS IT IS WITHOUT UPDATING**************
+
+************ PRE-REQ INSTALLATION IS NEEDED ON ALL ORCHESTRATOR NODES EXCEPT FOR THE SHARED STORAGE AND CERTIFICATE CREATION WHICH IS ONLY DONE ON THE PRIMARY NODE *****************
+
+Pre-Req Docs Page: https://docs.uipath.com/orchestrator/standalone/2023.10/installation-guide/orchestrator-prerequisites-for-installation
+
+CERTIFICATE COMMAND: New-SelfSignedCertificate -DnsName "lbdns-tests-ndxxt3p6ry.eastasia.cloudapp.azure.com", "orch-vm-0", "orch-vm-1" -CertStoreLocation "cert:\LocalMachine\My" -KeyLength 2048 -KeySpec Signature -FriendlyName "Orchestrator External Self Signed Cert" -Subject "CN=lbdns-tests-ndxxt3p6ry.eastasia.cloudapp.azure.com" -KeyExportPolicy Exportable
+
+
+PRIMARY NODE COMMAND: UiPathOrchestrator.msi OUTPUT_PARAMETERS_FILE=install.json REDIS_HOST=10.0.1.6 REDIS_PASSWORD=hTv862cNyvOM REDIS_PORT=10000 STORAGE_TYPE=FileSystem STORAGE_LOCATION="RootPath=\\10.0.0.8\SharedDir" QUARTZ_CLUSTERED=1 PUBLIC_URL=https://lbdns-tests-qvzjuokfj3.eastasia.cloudapp.azure.com CERTIFICATE_SUBJECT=lbdns-tests-qvzjuokfj3.eastasia.cloudapp.azure.com IS_CERTIFICATE_SUBJECT=lbdns-tests-qvzjuokfj3.eastasia.cloudapp.azure.com /l*vx installLog.txt
+
+
+SECONDARY NODE COMMAND: UiPathOrchestrator.msi SECONDARY_NODE=1 PARAMETERS_FILE=install.json /passive /l*vx installLog.txt
+
+**********************************************************************************************************
+LICENSE ACTIVATION : THIS PART IS ONLY LIMITED TO OUR LAB, THIS WILL NOT BE NEEDED IN A REAL WOLRD SCENARIO
+Key To Be Changed: <add key="License.ServiceURL" value="https://activate.uipath.com" />
+Value To Be Changed: Replace https://activate.uipath.com/ with  https://activate-stg.uipath.com/
+License Key: 1088-8488-6903-9944 (Only to be used for this LAB, not anywhere outside)
+
+
+Orchestrator MSI Download Link: 
+https://download.uipath.com/versions/23.10.12/UiPathOrchestrator.msi
+
+https://download.uipath.com/versions/23.10.13/UiPathStudio.msi
+
+https://download.uipath.com/versions/24.10.3-standalone/UiPathOrchestrator.msi
+
+16cpu
+
+

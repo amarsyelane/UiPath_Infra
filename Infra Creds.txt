@@ -1,0 +1,15 @@
+'elk VM RDP link': 'lbdns-utl-lqrskhqe7i.westeurope.cloudapp.azure.com:50044',
+  'elk VM private IP address': '10.0.0.6',
+  'haa VM1 private IP address': '10.0.1.4',
+  'haa VM2 private IP address': '10.0.1.6',
+  'haa VM3 private IP address': '10.0.1.5',
+  'orchestrator VM1 RDP link': 'lbdns-tests-zv3ezet3on.westeurope.cloudapp.azure.com:50001',
+  'orchestrator VM2 RDP link': 'lbdns-tests-zv3ezet3on.westeurope.cloudapp.azure.com:50002',
+  'robot VM RDP link': 'lbdns-utl-lqrskhqe7i.westeurope.cloudapp.azure.com:50055',
+  'robot VM private IP address': '10.0.0.5',
+  'sql server private IP address': '10.0.0.8',
+  username: 'uipzjfa925'
+  password: 'UIPbyrzd865',
+
+
+10.0.0.5:84

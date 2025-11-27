@@ -1,0 +1,60 @@
+HAA Installation:
+1.Download and install Putty: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+2.Connect to the 3 HAA nodes privateIP's (as mentioned in your individual lab details)
+
+
+Port 53 Issue Run Below Commands on all nodes:
+1. sudo vi /etc/systemd/resolved.conf (for editing press i to go into insert mode)
+2. Add DNSStubListener=no as the last line in the file and save the file (to save and exit --> press escape then :wq! and hit enter)
+3. sudo mv /etc/resolv.conf /etc/resolv.conf.orig
+4. sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+5. sudo service systemd-resolved restart
+
+Official Redis Page For Above Issue: https://redis.io/docs/latest/operate/rs/installing-upgrading/install/prepare-install/port-availability/
+
+MASTER NODE: 
+1. sudo swapoff -a 
+2. sudo sed -i.bak '/ swap / s/^(.*)$/#1/g' /etc/fstab 
+3. Check the default language with: localectl
+4. Check and note the OS of the VM with:  cat /etc/os-release
+5. Run this command to install wget: yum install wget -y
+6. cd /usr/
+7. sudo mkdir haa 
+8. cd haa
+9. sudo wget https://download.uipath.com/haa/get-haa.sh
+10. sudo chmod +x get-haa.sh
+11. sudo ./get-haa.sh -u <email> -p <password> --accept-license-agreement
+12. Point the browser to https://YourIndividualLabmasterIP:8443
+
+SECOND NODE:
+1. sudo swapoff -a 
+2. sudo sed -i.bak '/ swap / s/^(.*)$/#1/g' /etc/fstab
+3. Run this command to install wget: yum install wget -y  
+4. cd /usr/
+5. sudo mkdir haa 
+5. cd haa
+7. sudo wget https://download.uipath.com/haa/get-haa.sh
+8. sudo chmod +x get-haa.sh
+9. sudo ./get-haa.sh  -u <email ID set for master> -p <Password set for master> -j <Master IP> --accept-license-agreement
+10. Verify node status from https://YourIndividualLabmasterIP:8443
+
+THIRD NODE:
+1. sudo swapoff -a 
+2. sudo sed -i.bak '/ swap / s/^(.*)$/#1/g' /etc/fstab
+3. Run this command to install wget: yum install wget -y  
+4. cd /usr/
+5. sudo mkdir haa 
+5. cd haa
+7. sudo wget https://download.uipath.com/haa/get-haa.sh
+8. sudo chmod +x get-haa.sh
+9. sudo ./get-haa.sh  -u <email ID set for master> -p <Password set for master> -j <Master IP> --accept-license-agreement
+10. Verify node status from https://YourIndividualLabmasterIP:8443
+
+
+
+
+PS: Check OS with cat /etc/os-release or cat /etc/redhat-release
+
+
+
+
